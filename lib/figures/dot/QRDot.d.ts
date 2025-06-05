@@ -23,4 +23,5 @@ export default class QRDot {
     _drawExtraRounded({ x, y, size, getNeighbor }: DrawArgs): void;
     _drawClassy({ x, y, size, getNeighbor }: DrawArgs): void;
     _drawClassyRounded({ x, y, size, getNeighbor }: DrawArgs): void;
+    _drawDuttonCarIcon({ x, y, size, getNeighbor }: DrawArgs): void;
 }

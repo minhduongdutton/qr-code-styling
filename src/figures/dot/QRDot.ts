@@ -33,6 +33,9 @@ export default class QRDot {
       case dotTypes.extraRounded:
         drawFunction = this._drawExtraRounded;
         break;
+      case dotTypes.duttonCarIcon:
+        drawFunction = this._drawDuttonCarIcon;
+        break;
       case dotTypes.square:
       default:
         drawFunction = this._drawSquare;
@@ -290,6 +293,31 @@ export default class QRDot {
   }
 
   _drawClassyRounded({ x, y, size, getNeighbor }: DrawArgs): void {
+    const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
+    const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
+    const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
+    const bottomNeighbor = getNeighbor ? +getNeighbor(0, 1) : 0;
+
+    const neighborsCount = leftNeighbor + rightNeighbor + topNeighbor + bottomNeighbor;
+
+    if (neighborsCount === 0) {
+      this._basicCornersRounded({ x, y, size, rotation: Math.PI / 2 });
+      return;
+    }
+
+    if (!leftNeighbor && !topNeighbor) {
+      this._basicCornerExtraRounded({ x, y, size, rotation: -Math.PI / 2 });
+      return;
+    }
+
+    if (!rightNeighbor && !bottomNeighbor) {
+      this._basicCornerExtraRounded({ x, y, size, rotation: Math.PI / 2 });
+      return;
+    }
+
+    this._basicSquare({ x, y, size, rotation: 0 });
+  }
+  _drawDuttonCarIcon({ x, y, size, getNeighbor }: DrawArgs): void {
     const leftNeighbor = getNeighbor ? +getNeighbor(-1, 0) : 0;
     const rightNeighbor = getNeighbor ? +getNeighbor(1, 0) : 0;
     const topNeighbor = getNeighbor ? +getNeighbor(0, -1) : 0;
